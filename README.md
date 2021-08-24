@@ -1,1 +1,0 @@
-# Fourier_Series_Drawings
