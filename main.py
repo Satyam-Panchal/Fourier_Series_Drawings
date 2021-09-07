@@ -61,6 +61,7 @@ def goodData(s):  # takes in value of new svg input
             t = [start]
             start = complex(l[x], start.imag)
             t.append(start)
+            f.append(t)
             x += 1
             continue
         elif l[x] == 'V':
@@ -68,6 +69,7 @@ def goodData(s):  # takes in value of new svg input
             t = [start]
             start = complex(start.real, l[x])
             t.append(start)
+            f.append(t)
             x += 1
             continue
         elif l[x] == 'Z':
