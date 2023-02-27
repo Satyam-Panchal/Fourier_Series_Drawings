@@ -2,8 +2,9 @@ import numpy as np
 from math import pi, sin, cos
 import matplotlib.pyplot as plt
 from svgpathtools import svg2paths
+import json, http.server, socketserver
 
-paths, attributes = svg2paths("pi.svg")
+paths, attributes = svg2paths("./svgs/github.svg")
 
 path_string = ""
 
@@ -174,7 +175,7 @@ for list in converted_array:
 testing_list = complex_coordinates
 
 # for testing out the function
-complex_plotter(testing_list)
+# complex_plotter(testing_list)
 
 
 def nth_fourier_coefficient(n):
@@ -222,4 +223,20 @@ for letter in string:
 
     js_string.append(new_letter)
 
-print(js_string)
+# print(js_string)
+values={ "value":js_string }
+json_object = json.dumps(values)
+ 
+# Writing to values.json
+with open("coefficients.json", "w") as outfile:
+    outfile.write(json_object)
+
+# Code to trigger the server to run the drawing page 
+PORT=8000
+# Define the handler for serving static files
+Handler = http.server.SimpleHTTPRequestHandler
+
+with socketserver.TCPServer(("", PORT), Handler) as httpd:
+    print(f"Serving HTML page at http://localhost:{PORT}/js_code/")
+    httpd.serve_forever()
+
